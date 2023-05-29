@@ -9,6 +9,7 @@ import ReactLoading from 'react-loading'
 import Favpoke from './conponents/Favpoke'
 
 
+
 function App() {
   const [poke,setPoke] = useState("");
   const [loading,setLoading] = useState(false);
@@ -53,9 +54,16 @@ function App() {
     setFav((oldState) => [...oldState,poke]); // ...oldState เป็นการส่งค่าเก่าเข้าไปด้วย แล้วบวกกับข้อมูลใหม่ เป็น array
   }
 
-
+  const removePoke = () => {
+    const poppedArray = [...fav];
+    poppedArray.pop();
+    setFav(poppedArray); //เป็นการลบข้อมูล Array ที่อยู่ใน Fav
+  };
+  
   console.log("Pokemon ID ",number);
   console.log("Your favourite " , fav);
+ 
+
 
   const beforPoke = () =>{
     setNumber((number) => number -1)
@@ -73,7 +81,9 @@ function App() {
             :
             <>
               <h1>{poke?.name}</h1>
+              <br />
               <button onClick={addFav}>Add to favourite</button>
+              <button onClick={removePoke}>Remove favourite</button>
               <br />
               <img src={poke?.sprites?.other?.home?.front_default} alt={poke?.name} />
               <ul>
@@ -85,7 +95,7 @@ function App() {
         </div>
         <div>
           <h2 style={{fontSize:20 , fontWeight:700}}>Your Favourite Pokemon </h2>
-          {fav.length > 0 ? <Favpoke fav={fav}/>: <div className='flex h-full justify-center items-center'><p style={{fontWeight:700}}>No favourite pokeman</p></div>}
+          {fav.length > 0 ? <Favpoke fav={fav}/>: <div className='flex h-full justify-center items-center'><p style={{fontWeight:700}}>No favourite pokeman</p></div>}  
         </div>
       </div>  
     </div>
